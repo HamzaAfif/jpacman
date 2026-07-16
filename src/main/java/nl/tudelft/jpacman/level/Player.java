@@ -116,6 +116,17 @@ public class Player extends Unit {
     }
 
     /**
+     * Makes this player lose one life. The player only dies
+     * when no lives remain.
+     */
+    public void loseLife() {
+        lives--;
+        if (lives <= 0) {
+            setAlive(false);
+        }
+    }
+
+    /**
      * Returns the unit that caused the death of Pac-Man.
      *
      * @return <code>Unit</code> iff the player died by collision, otherwise <code>null</code>.
