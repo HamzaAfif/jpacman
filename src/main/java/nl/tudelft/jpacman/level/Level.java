@@ -152,6 +152,26 @@ public class Level {
     }
 
     /**
+     * Respawns a player on this level, placing him back on the next
+     * available starting square. This reuses the same square-rotation
+     * logic as {@link #registerPlayer(Player)}. Does nothing if the
+     * player is already alive (respawn only makes sense right after death).
+     *
+     * @param player
+     *            The player to respawn.
+     */
+    public void respawn(Player player) {
+        assert player != null;
+        assert !startSquares.isEmpty();
+
+        Square square = startSquares.get(startSquareIndex);
+        player.occupy(square);
+        player.setAlive(true);
+        startSquareIndex++;
+        startSquareIndex %= startSquares.size();
+    }
+
+    /**
      * Returns the board of this level.
      *
      * @return The board of this level.

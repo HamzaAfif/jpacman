@@ -18,6 +18,7 @@ import nl.tudelft.jpacman.points.PointCalculator;
 public class PlayerCollisions implements CollisionMap {
 
     private PointCalculator pointCalculator;
+    private Level level;
 
     /**
      * Create a simple player-based collision map, informing the
@@ -28,6 +29,18 @@ public class PlayerCollisions implements CollisionMap {
      */
     public PlayerCollisions(PointCalculator pointCalculator) {
         this.pointCalculator = pointCalculator;
+    }
+
+    /**
+     * Sets the level this collision map belongs to, needed to respawn
+     * players after they lose a life. Must be called once, right after
+     * the {@link Level} is constructed with this collision map.
+     *
+     * @param level
+     *            The level to respawn players on.
+     */
+    public void setLevel(Level level) {
+        this.level = level;
     }
 
     @Override
@@ -77,6 +90,10 @@ public class PlayerCollisions implements CollisionMap {
         pointCalculator.collidedWithAGhost(player, ghost);
         player.loseLife();
         player.setKiller(ghost);
+
+        if (player.getLives() > 0 && level != null) {
+            level.respawn(player);
+        }
     }
 
     /**

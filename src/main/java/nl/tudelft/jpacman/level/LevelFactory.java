@@ -85,7 +85,9 @@ public class LevelFactory {
         // We'll adopt the simple collision map for now.
         CollisionMap collisionMap = new PlayerCollisions(pointCalculator);
 
-        return new Level(board, ghosts, startPositions, collisionMap);
+        Level level = new Level(board, ghosts, startPositions, collisionMap);
+        collisionMap.setLevel(level);
+        return level;
     }
 
     /**
