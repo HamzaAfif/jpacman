@@ -24,6 +24,17 @@ import nl.tudelft.jpacman.sprite.Sprite;
 class PlayerTest {
 
     /**
+     * The number of lives a new player starts with.
+     */
+    private static final int STARTING_LIVES = 3;
+
+    /**
+     * Animation delay for the stub death sprite, in milliseconds.
+     */
+    private static final int DEATH_ANIMATION_DELAY = 100;
+
+
+    /**
      * The player under test.
      */
     private Player player;
@@ -39,7 +50,7 @@ class PlayerTest {
             spriteMap.put(direction, new StubSprite());
         }
         AnimatedSprite deathAnimation = new AnimatedSprite(
-            new Sprite[] {new StubSprite()}, 100, false);
+            new Sprite[] {new StubSprite()}, DEATH_ANIMATION_DELAY, false);
 
         player = new Player(spriteMap, deathAnimation);
     }
@@ -49,7 +60,7 @@ class PlayerTest {
      */
     @Test
     void newPlayerHasThreeLives() {
-        assertThat(player.getLives()).isEqualTo(3);
+        assertThat(player.getLives()).isEqualTo(STARTING_LIVES);
     }
 
     /**

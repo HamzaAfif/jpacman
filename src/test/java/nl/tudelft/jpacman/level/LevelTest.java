@@ -18,6 +18,7 @@ import nl.tudelft.jpacman.board.Square;
 import nl.tudelft.jpacman.sprite.AnimatedSprite;
 import nl.tudelft.jpacman.sprite.PacManSprites;
 import nl.tudelft.jpacman.sprite.Sprite;
+import nl.tudelft.jpacman.board.Unit;
 
 /**
  * Test suite to confirm that {@link Level#respawn(Player)} correctly places
@@ -57,7 +58,13 @@ class LevelTest {
         Board board = boardFactory.createBoard(grid);
 
         List<Square> startSquares = Collections.singletonList(startSquare);
-        CollisionMap collisions = (mover, collidedOn) -> { };
+
+        CollisionMap collisions = new CollisionMap() {
+            @Override
+            public <C1 extends Unit, C2 extends Unit> void collide(C1 mover, C2 collidedOn) {
+                // no collision handling needed in this test
+            }
+        };
 
         level = new Level(board, Collections.emptyList(), startSquares, collisions);
 

@@ -27,4 +27,14 @@ public interface CollisionMap {
      */
     <C1 extends Unit, C2 extends Unit> void collide(C1 collider, C2 collidee);
 
+    /**
+     * Sets the level, allowing collision handlers to trigger
+     * a respawn on the level when a player loses a life.
+     *
+     * @param level
+     *            The level in progress.
+     */
+    default void setLevel(Level level) {
+        // default: no level needed
+    }
 }
