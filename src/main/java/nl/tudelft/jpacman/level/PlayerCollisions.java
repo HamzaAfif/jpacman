@@ -92,4 +92,21 @@ public class PlayerCollisions implements CollisionMap {
         pellet.leaveSquare();
     }
 
+    public void respawn(Player player) {
+        assert player != null;
+        assert !startSquares.isEmpty();
+
+        if (!player.getLives()) {
+            return;
+        }
+
+        Square square = startSquares.get(startSquareIndex);
+        player.occupy(square);
+        player.setAlive(true);
+        startSquareIndex++;
+        startSquareIndex %= startSquares.size();
+
+        updateObservers();
+    }
+
 }
